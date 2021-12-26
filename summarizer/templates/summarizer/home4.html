@@ -1,0 +1,78 @@
+{% extends "summarizer/base2.html" %}
+{% block title %}
+    <title>Home | Sommaire</title>
+{% endblock title %}
+{% block style %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kalam&display=swap');
+        * {
+            box-sizing: border-box;
+        }
+        :root{
+            --primary-color: #F2C94C;
+            --text-color:#333333;  
+            --width-break: 600px;    
+        }
+        body{
+            font-family: 'Kalam', cursive;
+            margin:0;
+            color:var(--text-color); 
+
+        }
+        .header{    
+            background-color : var(--primary-color);    
+        }
+        #btn-translate{
+            border:none;
+            padding: 1rem 2rem;
+            margin: 1rem 0rem;
+            background-color:var(--primary-color);
+            font:inherit;
+            font-size:large;
+        }
+        .main{
+            box-sizing:border-box;
+            max-width:var(--width-break);
+            margin:auto;
+            padding:1rem;
+        }
+        footer{
+            position:fixed;
+            bottom:0;
+            width:100%;
+            background-color:var(--primary-color);
+            text-align:center;
+            padding:1rem;
+        }
+        footer p{
+            max-width: var(--width-break); 
+            margin:auto;   
+        }
+        #output 
+        {
+            background-color: #E5E7EB;
+            box-sizing: border-box;
+            border: 1px solid var(--text-color);
+            min-height: 20vh;
+            max-height: 80vh;
+            /* height: 472.511rem; */
+            width: 100%;
+            padding: 1rem;
+            overflow: scroll;
+            margin-left: 1rem;
+        }
+        #txtInput {
+            box-sizing: border-box;
+            display:block;
+            min-height: 20vh;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 2rem;
+            font: inherit;
+            font-size:large;
+        }
+    </style>
+{% endblock style %}
+{% block content %}
+    
+{% endblock content %}

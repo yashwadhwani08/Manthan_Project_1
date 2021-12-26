@@ -1,0 +1,12 @@
+<form id="summarize-form" action="{% url 'summarizer-home-summary' %}" method="get">
+    <!-- {% csrf_token %} -->
+    <div class="form-group row">
+        <div class="col-sm-5">
+            <label for="txtInput">Content:</label>
+            <textarea name="txtInput" class="form-control input-lg" id="txtInput" placeholder="Paste your article conetnt here that you want to summarize or choose file locally" style="height:100%; overflow: scroll; min-height: 60vh;max-height: 180vh; height: 4.511em;">{{originalText}}</textarea>
+            <center><input type="file" id="myFile" name="filename" style="margin: 3px 0px 3px 0px;"></center>            
+        </div>
+        <div class="col-sm-2" id="flexing" style="padding-top: 12.5%;margin-right: 1rem;margin-left: 1rem;">
+            <button type="submit" id="btn-summary">Summarize</button>
+        </div>
+</form>

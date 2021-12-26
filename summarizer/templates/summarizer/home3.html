@@ -1,0 +1,157 @@
+{% extends "summarizer/base.html" %}
+{% load static %}
+{% block title %}
+<title>Home | Sommaire</title>
+{% endblock title %}
+{% block link %}
+<link href="{% static 'summarizer/main.css' %}" rel="stylesheet" type="text/css">
+{% endblock link %}
+
+{% block style %}
+<style>
+    #flexing {
+        flex: 0 0% !important;
+    }
+</style>
+{% endblock style%}
+
+
+{% block content %}
+
+<div class="container">
+    <!-- <form id="summarize-form" action="{% url 'summarizer-home-summary' %}" method="post" ></form> -->
+
+
+    {% if originalText %}
+
+    <div class="form-group row">
+        <div class="col-sm-5">
+            <label for="txtInput">Content:</label>
+            <div class="txtOutput" contenteditable="true">{{originalText}}</div>
+            <!-- <textarea id="story" name="story" rows="5" cols="33">{{originalText}}</textarea> -->
+            <!-- <textarea name="txtInput" class="form-control input-lg" id="txtInput" placeholder="{{originalText}}" style="height:100%; overflow: scroll; min-height: 60vh;max-height: 180vh; height: 4.511em;"></textarea>     -->
+            <!-- <textarea name="txtInput" id="txtInput" style="height:100%; overflow: scroll; min-height: 60vh;max-height: 180vh; height: 4.511em;">{{originalText}}</textarea>                 -->
+        </div>
+        <div class="col-sm-2" id="flexing" style="padding-top: 12.5%;margin-right: 1rem;margin-left: 1rem;">
+            <button id="btn-summary">Summarize</button>
+        </div>
+        {% else %}
+        {% include "summarizer/includes/text_input_form.html" %}
+        {% endif %}
+
+        <div class="col-sm-5">
+            <div style="font-size: larger;">Summary will come here 👇</div>
+            {% if summaryContent %}
+            <div id="output">
+                <p style="font-size: smaller;">{{summaryContent}}</p>
+            </div>
+            <span class="btn-group" style="margin: 0 auto;">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ratingModal"
+                    style="margin-top: .5rem; margin-right: .5rem; border-radius: 0.25rem !important;">
+                    Give Rating
+                </button>
+                <form action="{% url 'summarizer-generate-pdf' %}" method="post">{% csrf_token %}
+                    <button type="submit" class="btn btn-primary" style="margin-top: .5rem; margin-right: .5rem;">
+                        Generate PDF
+                    </button>                    
+                </form>
+                <div style="float: center;  /*padding-left: 710px;*/ display: inline-flex; margin-top: 0.5rem;">
+                    <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                        <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                        <a class="a2a_button_facebook"></a>
+                        <a class="a2a_button_twitter"></a>
+                        <a class="a2a_button_linkedin"></a>
+                    </div>
+                    <script async src="https://static.addtoany.com/menu/page.js"></script>
+                </div>
+            </span>
+            <!-- {% include "summarizer/includes/rating.html" %} -->
+
+            {% else %}
+            <div id="output">
+                <p style="font-size: smaller;">Output text</p>
+            </div>
+            
+            <!-- <span class="btn-group" style="margin: 0 auto;">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ratingModal"
+                    style="margin-top: .5rem; margin-right: .5rem; border-radius: 0.25rem !important;">
+                    Give Rating
+                </button>
+                <form action="{% url 'summarizer-generate-pdf' %}" method="post">{% csrf_token %}
+                    <button type="submit" class="btn btn-primary" style="margin-top: .5rem; margin-right: .5rem;">
+                        Generate PDF
+                    </button>                    
+                </form>
+                <div style="float: center;  /*padding-left: 710px;*/ display: inline-flex; margin-top: 0.5rem;">
+                    <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                        <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                        <a class="a2a_button_facebook"></a>
+                        <a class="a2a_button_twitter"></a>
+                        <a class="a2a_button_linkedin"></a>
+                    </div>
+                    <script async src="https://static.addtoany.com/menu/page.js"></script>
+                </div>
+            </span> -->
+            <!-- <div style="float: center;  padding-left: 710px;">
+                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                    <a class="a2a_button_facebook"></a>
+                    <a class="a2a_button_twitter"></a>
+                    <a class="a2a_button_linkedin"></a>
+                </div>
+                <script async src="https://static.addtoany.com/menu/page.js"></script>
+            </div> -->
+        </div>
+        
+
+
+        <!-- <form action="{% url 'summarizer-home-summary' %}">                        
+                        <button type="submit" id="save">Save the summary and article</button>                        
+                    </form> -->
+
+        {% endif %}
+    </div>
+</div>
+</div>
+
+<!-- <div class="form-group row">
+    <div class="col-sm-6">
+        <label for="comment">Content:</label>
+        <textarea class="form-control input-lg" id="content" placeholder="Paste your article conetnt here that you want to summarize or choose file locally"></textarea>
+        <center><input type="file" id="myFile" name="filename" style="margin: 3px 0px 3px 0px;"></center>
+    </div>
+    <div>
+        <button id="btn-translate">Summarize</button>
+    </div>        
+    <div class="col-sm-6">
+        <div style="font-size: larger;">Summary will come here 👇</div>
+        <div id="output">Output text</div>
+    </div>
+</div> -->
+{% endblock content %}
+{% block modal %}
+<div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Rate the summary generated</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="rating">
+                    <input type="radio" name="star" id="star1"><label for="star1"></label>
+                    <input type="radio" name="star" id="star2"><label for="star2"></label>
+                    <input type="radio" name="star" id="star3"><label for="star3"></label>
+                    <input type="radio" name="star" id="star4"><label for="star4"></label>
+                    <input type="radio" name="star" id="star5"><label for="star5"></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="{% url 'summarizer-generate-pdf' %}" method="post">{% csrf_token %}<button type="submit"
+                        class="btn btn-primary">Save changes</button></form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock modal %}
